@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface VendedorDao {
 
-    void insert(Vendedor obj);
-    void update(Vendedor obj);
-    void delete(Integer id);
-    Vendedor findById(Integer id);
-    List<Vendedor> findAll();
+    void inserir(Vendedor obj);
+    void atualizar(Vendedor obj);
+    void apagar(Integer id);
+    Vendedor acharPorId(Integer id);
+    List<Vendedor> acharTodos();
 }

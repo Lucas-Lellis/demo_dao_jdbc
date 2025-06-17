@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface DepartamentoDao {
 
-    void insert(Departamento obj);
-    void update(Departamento obj);
-    void delete(Integer id);
-    Departamento findById(Integer id);
-    List<Departamento> findAll();
+    void inserir(Departamento obj);
+    void atualizar(Departamento obj);
+    void apagar(Integer id);
+    Departamento acharPorId(Integer id);
+    List<Departamento> acharTodos();
 }
