@@ -11,12 +11,9 @@ public class Programa {
 
     public static void main(String[] args) {
 
-        Departamento obj = new Departamento(1, "Livros");
-        Vendedor vendedor = new Vendedor(21, "Jason", "jason@gmail.com", LocalDate.of(2005,
-                04, 23), 3000.0 , obj);
-
         VendedorDao vendedorDao = FabricaDao.criarVendedorDao();
-        
+        Vendedor vendedor = vendedorDao.acharPorId(3);
+
         System.out.println(vendedor);
     }
 }
