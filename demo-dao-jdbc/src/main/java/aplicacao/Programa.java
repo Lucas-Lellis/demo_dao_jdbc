@@ -4,6 +4,8 @@ import model.dao.FabricaDao;
 import model.dao.VendedorDao;
 import model.entidades.Departamento;
 import model.entidades.Vendedor;
+
+import java.sql.Date;
 import java.util.List;
 
 public class Programa {
@@ -29,5 +31,10 @@ public class Programa {
             System.out.println(obj);
         }
 
+        System.out.println("\n === TESTE 4: Vendedor Inserir ===");
+        Vendedor newVendedor = new Vendedor(null, "Luke", "luke@gmail.com", new Date(System.currentTimeMillis()),
+                4000.0, dep);
+        vendedorDao.inserir(newVendedor);
+        System.out.println("INSERIDO! Novo ID = " + newVendedor.getId());
     }
 }

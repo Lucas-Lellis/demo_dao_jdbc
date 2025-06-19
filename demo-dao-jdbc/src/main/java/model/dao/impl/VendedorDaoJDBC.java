@@ -25,7 +25,42 @@ public class VendedorDaoJDBC implements VendedorDao {
 
     @Override
     public void inserir(Vendedor obj) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement(
+                    "INSERT INTO seller " +
+                        "(Name, Email, BirthDate, BaseSalary, DepartmentID)" +
+                        "VALUES " +
+                        "(?, ?, ?, ?, ?) ",
+                    PreparedStatement.RETURN_GENERATED_KEYS
+            );
 
+            st.setString(1, obj.getNome());
+            st.setString(2, obj.getEmail());
+            st.setDate(3, obj.getDataNascimento());
+            st.setDouble(4, obj.getSalarioBase());
+            st.setInt(5, obj.getDepartamento().getId());
+
+            int linhasAfetadas = st.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                ResultSet rs = st.getGeneratedKeys();
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    obj.setId(id);
+                }
+                DB.closeResultSet(rs);
+            }
+            else {
+                throw new DbException("Error Inesperado! Nenhuma Linha Alterada");
+            }
+        }
+        catch(SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override
@@ -75,7 +110,7 @@ public class VendedorDaoJDBC implements VendedorDao {
         obj.setNome(rs.getString("Name"));
         obj.setEmail(rs.getString("Email"));
         obj.setSalarioBase(rs.getDouble("BaseSalary"));
-        obj.setDataNascimento(rs.getDate("BirthDate").toLocalDate());
+        obj.setDataNascimento(rs.getDate("BirthDate"));
         obj.setDepartamento(dep);
         return obj;
     }
