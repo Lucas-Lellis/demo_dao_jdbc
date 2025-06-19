@@ -37,7 +37,30 @@ public class DepartamentoDaoJDBC implements DepartamentoDao {
 
     @Override
     public Departamento acharPorId(Integer id) {
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT * FROM department " +
+                        "WHERE Id = ? "
+            );
+
+            st.setInt(1, id);
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                Departamento dep = instanciarDepartamento(rs);
+                return dep;
+            }
+            return null;
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override

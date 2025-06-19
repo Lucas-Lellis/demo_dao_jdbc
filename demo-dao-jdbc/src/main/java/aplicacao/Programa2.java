@@ -3,7 +3,6 @@ package aplicacao;
 import model.dao.DepartamentoDao;
 import model.dao.FabricaDao;
 import model.entidades.Departamento;
-import model.entidades.Vendedor;
 
 import java.util.List;
 
@@ -19,5 +18,8 @@ public class Programa2 {
             System.out.println(dep);
         }
 
+        System.out.println("\n=== TESTE 2: Departamento AcharPorId ===");
+        Departamento dep = departamentoDao.acharPorId(2);
+        System.out.println(dep);
     }
 }
