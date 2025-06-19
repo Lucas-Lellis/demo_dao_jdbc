@@ -7,10 +7,13 @@ import model.entidades.Vendedor;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class Programa {
 
     public static void main(String[] args) {
+
+        Scanner scan = new Scanner(System.in);
 
         VendedorDao vendedorDao = FabricaDao.criarVendedorDao();
 
@@ -42,5 +45,13 @@ public class Programa {
         vendedor.setNome("Maria Silva");
         vendedorDao.atualizar(vendedor);
         System.out.println("ATUALIZADO COMPLETA!");
+
+        System.out.println("\n === TESTE 6: Vendedor Apagar ===");
+        System.out.print("Enter com o ID para Apagar: ");
+        int id = scan.nextInt();
+        vendedorDao.apagar(id);
+        System.out.println("APAGADO COM SUCESSO!");
+
+        scan.close();
     }
 }

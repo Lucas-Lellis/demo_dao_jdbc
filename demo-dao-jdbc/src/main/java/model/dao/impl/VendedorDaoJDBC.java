@@ -92,7 +92,27 @@ public class VendedorDaoJDBC implements VendedorDao {
 
     @Override
     public void apagar(Integer id) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement(
+                    "DELETE FROM seller " +
+                            "WHERE Id = ? "
+            );
 
+            st.setInt(1, id);
+
+            int linhasAfetadas = st.executeUpdate();
+
+            if (linhasAfetadas == 0) {
+                throw new DbException("ID não existente!");
+            }
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override
@@ -153,7 +173,7 @@ public class VendedorDaoJDBC implements VendedorDao {
                     "SELECT seller.*,department.Name as DepName " +
                             "FROM seller INNER JOIN department " +
                             "ON seller.DepartmentId = department.Id " +
-                            "ORDER BY Name "
+                            "ORDER BY Id "
             );
 
             rs = st.executeQuery();
