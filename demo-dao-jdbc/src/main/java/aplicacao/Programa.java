@@ -13,7 +13,8 @@ public class Programa {
 
         VendedorDao vendedorDao = FabricaDao.criarVendedorDao();
         Vendedor vendedor = vendedorDao.acharPorId(3);
-
+        
+        System.out.println("=== TESTE 1: Vendedor AcharPorID ===");
         System.out.println(vendedor);
     }
 }
